@@ -1,50 +1,49 @@
 package com.falin.valentin.reminder_project;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.falin.valentin.reminder_project.presenter.Presenter;
 import com.falin.valentin.reminder_project.view.ReminderAdapter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private Presenter mPresenter;
 
     ReminderAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton mFAB;
+    @BindView(R.id.content_recycler)
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         mPresenter = new Presenter();
         mPresenter.attachContext(this);
         initUIComponents();
     }
 
     private void initUIComponents() {
-        Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        FloatingActionButton mFAB = findViewById(R.id.fab);
-        mFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.addReminder();
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
+        mFAB.setOnClickListener( v -> mPresenter.addReminder());
 
         mLayoutManager = new LinearLayoutManager(this);
-        RecyclerView mRecyclerView = findViewById(R.id.content_recycler);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ReminderAdapter(mPresenter.getModelList());
