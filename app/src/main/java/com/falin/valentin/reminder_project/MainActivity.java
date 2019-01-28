@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateReminderList() {
-        mAdapter.updateList(mPresenter.getModelList());
+        int size = mPresenter.getModelList().size();
+        mAdapter.updateList(mPresenter.getModelList().get(size - 1));
     }
 
     @Override

@@ -36,10 +36,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         return 0;
     }
 
-    public void updateList(List<String> modelList) {
-        mList = new ArrayList<>();
-        mList.addAll(modelList);
-        notifyDataSetChanged();
+    public void updateList(String newReminder) {
+        mList.add(newReminder);
+        notifyItemInserted(mList.size());
     }
 
     class ReminderViewHolder extends RecyclerView.ViewHolder {
