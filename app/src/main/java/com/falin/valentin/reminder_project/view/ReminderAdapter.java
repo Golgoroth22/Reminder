@@ -1,6 +1,7 @@
 package com.falin.valentin.reminder_project.view;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
-    private List<String> mList;
+    private List<String> mMainList;
+    private List<String> mFullList;
 
-    public ReminderAdapter(List<String> modelList) {
-        mList = new ArrayList<>();
-        mList.addAll(modelList);
+    public ReminderAdapter(List<String> inputList) {
+        mMainList = new ArrayList<>();
+        mFullList = new ArrayList<>();
+        mFullList.addAll(inputList);
+        mMainList.addAll(inputList);
     }
 
     @Override
@@ -27,18 +31,29 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
     @Override
     public void onBindViewHolder(ReminderViewHolder holder, int position) {
-        holder.reminderText.setText(mList.get(position));
+        holder.reminderText.setText(mMainList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        if (mList.size() != 0) return mList.size();
+        if (mMainList.size() != 0) return mMainList.size();
         return 0;
     }
 
-    public void updateList(List<String> modelList) {
-        mList = new ArrayList<>();
-        mList.addAll(modelList);
+    public void addReminder(String newReminder) {
+        mMainList.add(newReminder);
+        mFullList.add(newReminder);
+        notifyItemInserted(mMainList.size());
+    }
+
+    public void searchReminderBy(String searchText) {
+        List<String> mTempList = new ArrayList<>();
+
+        for (String s : mFullList) {
+            if (s.contains(searchText)) mTempList.add(s);
+        }
+
+        mMainList = mTempList;
         notifyDataSetChanged();
     }
 
