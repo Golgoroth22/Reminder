@@ -2,10 +2,8 @@ package com.falin.valentin.reminder_project.presenter;
 
 import com.falin.valentin.reminder_project.MainActivity;
 import com.falin.valentin.reminder_project.model.DataModel;
-import com.falin.valentin.reminder_project.model.Model;
 
 import java.util.List;
-import java.util.Random;
 
 public class Presenter {
     private DataModel mModel;
@@ -19,9 +17,8 @@ public class Presenter {
         return mModel.getList();
     }
 
-    public void addReminder() {
-        mModel.addReminder();
-        mContext.updateReminderList();
+    public void fabClicked() {
+        mContext.updateReminderList(mModel.addReminder());
     }
 
     public void attachContext(MainActivity context) {

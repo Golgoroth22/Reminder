@@ -23,7 +23,9 @@ public class DataModel {
         return list;
     }
 
-    public void addReminder() {
-        list.add(random.nextInt(100) + "");
+    public String addReminder() {
+        String result = random.nextInt(100) + "";
+        list.add(result);
+        return result;
     }
 }

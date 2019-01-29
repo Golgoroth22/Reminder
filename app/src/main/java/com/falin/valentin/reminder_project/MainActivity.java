@@ -1,14 +1,18 @@
 package com.falin.valentin.reminder_project;
 
 import android.os.Bundle;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
 
 import com.falin.valentin.reminder_project.presenter.Presenter;
 import com.falin.valentin.reminder_project.view.ReminderAdapter;
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void initUIComponents() {
         setSupportActionBar(mToolbar);
 
-        mFAB.setOnClickListener( v -> mPresenter.addReminder());
+        mFAB.setOnClickListener(v -> mPresenter.fabClicked());
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -50,22 +54,29 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void updateReminderList() {
-        int size = mPresenter.getModelList().size();
-        mAdapter.updateList(mPresenter.getModelList().get(size - 1));
+    public void updateReminderList(String newReminder) {
+        mAdapter.addReminder(newReminder);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            Toast.makeText(this, "SEARCH", Toast.LENGTH_LONG).show();
-        }
-        return super.onOptionsItemSelected(item);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.searchReminderBy(newText);
+                return false;
+            }
+        });
+        return true;
     }
 }
