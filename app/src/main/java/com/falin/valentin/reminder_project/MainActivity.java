@@ -69,19 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                mAdapter.searchReminderBy(newText);
+                mPresenter.searchReminderBy(newText);
                 return false;
             }
         });
         return true;
-    }
-
-    public void updateReminderList(String newReminder) {
-        switch (mAdapter.getCurrentFragmentId()) {
-            case Constants.TAB_ONE:
-                break;
-            case Constants.TAB_TWO:
-                break;
-        }
     }
 }

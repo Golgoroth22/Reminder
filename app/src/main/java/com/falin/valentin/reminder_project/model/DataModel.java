@@ -1,5 +1,7 @@
 package com.falin.valentin.reminder_project.model;
 
+import com.falin.valentin.reminder_project.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +25,7 @@ public class DataModel {
         random = new Random();
     }
 
-    public List<String> getTabOnelist() {
+    public List<String> getTabOneList() {
         return mTabOnelist;
     }
 
@@ -31,9 +33,16 @@ public class DataModel {
         return mTabTwoList;
     }
 
-    public String addReminder() {
+    public String addReminder(int fragmentId) {
         String result = random.nextInt(100) + "";
-        mTabOnelist.add(result);
+        switch (fragmentId) {
+            case (Constants.TAB_ONE):
+                mTabOnelist.add(result);
+                break;
+            case (Constants.TAB_TWO):
+                mTabTwoList.add(result);
+                break;
+        }
         return result;
     }
 }

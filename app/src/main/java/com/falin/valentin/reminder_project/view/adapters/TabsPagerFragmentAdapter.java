@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
-    private int mCurrentFragmentId = 0;
     private Presenter mPresenter;
     private String[] mTabs;
 
@@ -23,10 +22,6 @@ public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
         };
     }
 
-    public int getCurrentFragmentId() {
-        return mCurrentFragmentId;
-    }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -36,16 +31,13 @@ public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
-                mCurrentFragmentId = Constants.TAB_ONE;
-                WarningFragment fragment = new WarningFragment();
-                fragment.setArguments(mPresenter, mCurrentFragmentId);
+            case Constants.TAB_ONE:
+                WarningFragment fragment = WarningFragment.newInstance(mPresenter);
+                mPresenter.setCurrentFragmentId(Constants.TAB_ONE);
+                mPresenter.setFragmentContext(fragment);
                 return fragment;
-            case 1:
-                mCurrentFragmentId = Constants.TAB_TWO;
-                WarningFragment fragment1 = new WarningFragment();
-                fragment1.setArguments(mPresenter, mCurrentFragmentId);
-                return fragment1;
+            case Constants.TAB_TWO:
+                return WarningFragment.newInstance(mPresenter);
         }
         return null;
     }
