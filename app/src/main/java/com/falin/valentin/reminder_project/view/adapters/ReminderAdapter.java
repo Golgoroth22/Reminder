@@ -1,4 +1,4 @@
-package com.falin.valentin.reminder_project.view;
+package com.falin.valentin.reminder_project.view.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 

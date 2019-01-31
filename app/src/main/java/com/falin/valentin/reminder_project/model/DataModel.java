@@ -7,7 +7,8 @@ import java.util.Random;
 public class DataModel {
     private static final DataModel ourInstance = new DataModel();
 
-    private List<String> list;
+    private List<String> mTabOnelist;
+    private List<String> mTabTwoList;
     private Random random;
 
     public static DataModel getInstance() {
@@ -15,17 +16,24 @@ public class DataModel {
     }
 
     private DataModel() {
-        list = new ArrayList<>();
+        mTabOnelist = new ArrayList<>();
+        mTabOnelist.add("11");
+        mTabTwoList = new ArrayList<>();
+        mTabTwoList.add("22");
         random = new Random();
     }
 
-    public List<String> getList() {
-        return list;
+    public List<String> getTabOnelist() {
+        return mTabOnelist;
+    }
+
+    public List<String> getTabTwoList() {
+        return mTabTwoList;
     }
 
     public String addReminder() {
         String result = random.nextInt(100) + "";
-        list.add(result);
+        mTabOnelist.add(result);
         return result;
     }
 }
