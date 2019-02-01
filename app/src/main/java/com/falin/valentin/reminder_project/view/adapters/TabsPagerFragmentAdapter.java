@@ -2,6 +2,7 @@ package com.falin.valentin.reminder_project.view.adapters;
 
 import com.falin.valentin.reminder_project.Constants;
 import com.falin.valentin.reminder_project.presenter.Presenter;
+import com.falin.valentin.reminder_project.view.fragments.TODOFragment;
 import com.falin.valentin.reminder_project.view.fragments.WarningFragment;
 
 import androidx.annotation.Nullable;
@@ -34,10 +35,13 @@ public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
             case Constants.TAB_ONE:
                 WarningFragment fragment = WarningFragment.newInstance(mPresenter);
                 mPresenter.setCurrentFragmentId(Constants.TAB_ONE);
-                mPresenter.setFragmentContext(fragment);
+                mPresenter.attachWarningFragmentContext(fragment);
                 return fragment;
             case Constants.TAB_TWO:
-                return WarningFragment.newInstance(mPresenter);
+                TODOFragment fragment1 = TODOFragment.newInstance(mPresenter);
+                mPresenter.setCurrentFragmentId(Constants.TAB_TWO);
+                mPresenter.attachTODOFragmentContext(fragment1);
+                return fragment1;
         }
         return null;
     }

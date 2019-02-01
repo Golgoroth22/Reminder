@@ -3,9 +3,11 @@ package com.falin.valentin.reminder_project.presenter;
 import com.falin.valentin.reminder_project.Constants;
 import com.falin.valentin.reminder_project.MainActivity;
 import com.falin.valentin.reminder_project.model.DataModel;
+import com.falin.valentin.reminder_project.view.fragments.TODOFragment;
 import com.falin.valentin.reminder_project.view.fragments.WarningFragment;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Presenter implements Serializable {
@@ -13,13 +15,20 @@ public class Presenter implements Serializable {
     private MainActivity mContext;
     private int mCurrentFragmentId;
     private WarningFragment mWarningFragment;
+    private TODOFragment mTODOFragment;
 
     public Presenter() {
         mModel = DataModel.getInstance();
     }
 
     public List<String> getModelList(int tabId) {
-        return mModel.getTabOneList();
+        switch (tabId) {
+            case Constants.TAB_ONE:
+                return mModel.getTabOneList();
+            case Constants.TAB_TWO:
+                return mModel.getTabTwoList();
+        }
+        return new ArrayList<>();
     }
 
     public void fabClicked() {
@@ -34,8 +43,12 @@ public class Presenter implements Serializable {
         mCurrentFragmentId = fragmentId;
     }
 
-    public void setFragmentContext(WarningFragment fragment) {
+    public void attachWarningFragmentContext(WarningFragment fragment) {
         mWarningFragment = fragment;
+    }
+
+    public void attachTODOFragmentContext(TODOFragment fragment) {
+        mTODOFragment = fragment;
     }
 
     public void searchReminderBy(String text) {
