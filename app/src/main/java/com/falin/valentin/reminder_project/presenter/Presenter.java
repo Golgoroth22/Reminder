@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Presenter implements Serializable {
     private DataModel mModel;
-    private MainActivity mContext;
     private int mCurrentFragmentId;
     private WarningFragment mWarningFragment;
     private TODOFragment mTODOFragment;
@@ -35,10 +34,6 @@ public class Presenter implements Serializable {
         mWarningFragment.updateReminderList(mModel.addReminder(mCurrentFragmentId));
     }
 
-    public void attachContext(MainActivity context) {
-        mContext = context;
-    }
-
     public void setCurrentFragmentId(int fragmentId) {
         mCurrentFragmentId = fragmentId;
     }
@@ -52,10 +47,6 @@ public class Presenter implements Serializable {
     }
 
     public void searchReminderBy(String text) {
-        switch (mCurrentFragmentId) {
-            case Constants.TAB_ONE:
-                mWarningFragment.searchReminderBy(text);
-                break;
-        }
+        mWarningFragment.searchReminderBy(text);
     }
 }

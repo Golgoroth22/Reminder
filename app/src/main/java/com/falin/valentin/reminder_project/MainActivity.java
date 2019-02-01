@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mPresenter = new Presenter();
-        mPresenter.attachContext(this);
         initUIComponents();
     }
 
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout.setupWithViewPager(mViewPager);
         mFAB.setOnClickListener(v -> mPresenter.fabClicked());
-
     }
 
     @Override
