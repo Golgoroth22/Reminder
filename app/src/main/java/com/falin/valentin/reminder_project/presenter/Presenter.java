@@ -18,7 +18,7 @@ public class Presenter implements Serializable {
         mModel = DataModel.getInstance();
     }
 
-    public List<String> getModelList() {
+    public List<String> getModelList(int tabId) {
         return mModel.getTabOneList();
     }
 
